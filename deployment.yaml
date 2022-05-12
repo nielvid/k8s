@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+  labels:
+    name: nodejs-app
+spec:
+  selector: 
+    matchLabels:
+      app: nodejs-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+      - image:  nielvid/k8s-node-server:2.0.0
+        name: nodejs-app
+        resources:
+          limits:
+            cpu: "250m"
+            memory: "128Mi"   
+        ports:
+        - containerPort:  3000
+    
+        
