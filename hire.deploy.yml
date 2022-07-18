@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hire
+spec:
+  selector:
+    matchLabels:
+      app: hire
+  template:
+    metadata:
+      labels:
+        app: hire
+    spec:
+      containers:
+      - name: hire
+        image: nielvid/hiring
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3120
+        envFrom:
+          - configMapRef:
+              name: hire
+      
+
+
